@@ -1,4 +1,3 @@
-import { ServiceResponse } from './../interfaces/service-response.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -6,6 +5,8 @@ import { environment } from 'src/environments/environment.development';
 import { Director } from '../interfaces/movie.interface';
 import { ApiResponse } from '../interfaces/api-response.interface';
 import { PageD } from '../interfaces/page.interface';
+import { ENDPOINTS } from '../constants/Endpoints.const';
+import { ServiceResponse } from '../interfaces/service-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,40 +14,40 @@ import { PageD } from '../interfaces/page.interface';
 export class DirectorService {
   constructor(private http: HttpClient) {}
 
-  private apiServerUrl = environment.apiBaseUrl;
-
   directors$ = (
     name = '',
     page = 0,
     size = 5
   ): Observable<ApiResponse<PageD>> =>
     this.http.get<ApiResponse<PageD>>(
-      `${this.apiServerUrl}/api/v1/directors/allp?name=${name}&page=${page}&size=${size}`
+      environment.apiBaseUrl +
+        ENDPOINTS.DIRECTORS_GET +
+        `?name=${name}&page=${page}&size=${size}`
     );
 
   public getDirectors(): Observable<ServiceResponse<Director[]>> {
     return this.http.get<ServiceResponse<Director[]>>(
-      `${this.apiServerUrl}/api/v1/directors/all`
+      environment.apiBaseUrl + ENDPOINTS.DIRECTORS
     );
   }
 
   public addDirector(director: Director): Observable<Director> {
     return this.http.post<Director>(
-      `${this.apiServerUrl}/api/v1/directors/add`,
+      environment.apiBaseUrl + ENDPOINTS.DIRECTORS_ADD,
       director
     );
   }
 
   public updateDirector(director: Director): Observable<Director> {
     return this.http.put<Director>(
-      `${this.apiServerUrl}/api/v1/directors/update`,
+      environment.apiBaseUrl + ENDPOINTS.DIRECTORS_UPDATE,
       director
     );
   }
 
   public deleteDirector(directorId: number): Observable<void> {
     return this.http.delete<void>(
-      `${this.apiServerUrl}/api/v1/directors/delete/${directorId}`
+      environment.apiBaseUrl + ENDPOINTS.DIRECTORS_DELETE + `${directorId}`
     );
   }
 }

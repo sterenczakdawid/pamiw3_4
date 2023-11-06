@@ -107,11 +107,6 @@
             <label for="title">Title</label>
             <input type="text" ngModel name="title" class="form-control" id="title" placeholder="Title" required>
           </div>
-          <!-- <div class="form-group">
-            <label for="director">Director</label>
-            <input type="text" ngModel name="director" class="form-control" id="director" placeholder="Director"
-              required>
-          </div> -->
           <div class="form-group" *ngIf="directors$ | async as directors">
             <label for="director">Director</label>
             <select ngModel name="director" class="form-control" id="director" placeholder="Director" required>
@@ -159,10 +154,13 @@
               aria-describedby="emailHelp" placeholder="Title">
           </div>
           <input type="hidden" ngModel="{{editMovie?.id}}" name="id" class="form-control" id="id" placeholder="">
-          <div class="form-group">
+          <div class="form-group" *ngIf="directors$ | async as directors">
             <label for="director">Director</label>
-            <input type="text" ngModel="{{editMovie?.director}}" name="director" class="form-control" id="director"
-              placeholder="Director">
+            <select ngModel name="director" class="form-control" id="director" placeholder="Director" required>
+              <option *ngFor="let director of directors" [ngValue]="director">
+                {{ director.name }} {{ director.surname }}
+              </option>
+            </select>
           </div>
           <div class="form-group">
             <label for="yearOfRelease">yearOfRelease</label>

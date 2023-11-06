@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.apache.el.lang.ELArithmetic.isNumber;
+
 @RestController
 @RequestMapping("/api/v1/movies")
 public class MovieResource {
@@ -45,16 +47,16 @@ public class MovieResource {
 
     @DeleteMapping("/delete/{id}")
     public ServiceResponse<Movie> deleteMovie(@PathVariable("id") Long id) {
-        if (id == null) {
-            return new ServiceResponse<>(null, false, "ID cannot be null!");
+        if (!isNumber(id)) {
+            return new ServiceResponse<>(null, false, "ID must be a number!");
         }
         return this.movieService.deleteMovie(id);
     }
 
     @PutMapping("/update")
     public ServiceResponse<Movie> updateMovie(@RequestBody Movie movie) {
-        if (movie.getId() == null) {
-            return new ServiceResponse<>(null, false, "Id cannot be null");
+        if (!isNumber(movie.getId()) || movie.getId() == null) {
+            return new ServiceResponse<>(null, false, "Id must be a number");
         }
         return movieService.updateMovie(movie);
     }
