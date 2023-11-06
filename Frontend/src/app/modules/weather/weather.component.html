@@ -1,0 +1,22 @@
+<ng-container *ngIf="weatherViewModel.City">
+  <h2> {{ weatherViewModel.City.LocalizedName }}</h2>
+  <div *ngIf="weatherViewModel.temperature">
+    <p>Aktualna temperatura: {{weatherViewModel.temperature}}°C</p>
+  </div>
+  <div *ngIf="weatherViewModel.temperatureOneHour">
+    <p>Temperatura za godzinę: {{weatherViewModel.temperatureOneHour}}°C</p>
+  </div>
+  <div *ngIf="weatherViewModel.temperature12Hours">
+    <p>Temperatura za 12 godzin: {{weatherViewModel.temperature12Hours}}°C</p>
+  </div>
+  <div *ngIf="weatherViewModel.temperatureTomorrow">
+    <p>Temperatura jutro: {{weatherViewModel.temperatureTomorrow}}°C</p>
+  </div>
+  <div *ngIf="weatherViewModel.temperature5Days">
+    <p>Temperatura za 5 dni: {{weatherViewModel.temperature5Days}}°C</p>
+  </div>
+  <div *ngIf="weatherViewModel.temperatureYesterday">
+    <p>Temperatura wczoraj: {{weatherViewModel.temperatureYesterday}}°C</p>
+  </div>
+</ng-container>
+
